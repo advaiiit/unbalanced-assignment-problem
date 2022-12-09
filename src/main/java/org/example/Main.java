@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Main {
 
@@ -17,6 +19,8 @@ public class Main {
 
         ResultSet rs = null;
         ArrayList<Entity> entities = new ArrayList<>();
+        Set<String> uniqueResources = new HashSet<>();
+        Set<String> uniqueJobs = new HashSet<>();
 
         try {
             Class.forName(dbDriver);
@@ -29,10 +33,17 @@ public class Main {
 
         try {
             while(rs.next()) {
+                String currentResource = rs.getString("resource_id");
+                String currentJob = rs.getString("job_id");
+                int currentCost = rs.getInt("cost");
+
+                uniqueResources.add(currentResource);
+                uniqueJobs.add(currentJob);
+
                 Entity entity = new Entity();
-                entity.setResourceId(rs.getString("resource_id"));
-                entity.setJobId(rs.getString("job_id"));
-                entity.setCost(rs.getInt("cost"));
+                entity.setResourceId(currentResource);
+                entity.setJobId(currentJob);
+                entity.setCost(currentCost);
                 entities.add(entity);
             }
         } catch (Exception e) {
@@ -45,5 +56,10 @@ public class Main {
             System.out.print("\tcost: " + entity.getCost());
             System.out.println();
         }
+
+        System.out.println();
+
+        System.out.println("Unique Patients: " + uniqueResources.size());
+        System.out.println("Unique Slots: " + uniqueJobs.size());
     }
 }
