@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -50,16 +51,13 @@ public class Main {
             System.out.println(e);
         }
 
+        HashMap<String, HashMap<String, Integer>> dataMatrix = new HashMap<>();
         for (Entity entity : entities) {
-            System.out.print("resource_id: " + entity.getResourceId());
-            System.out.print("\tjob_id: " + entity.getJobId());
-            System.out.print("\tcost: " + entity.getCost());
-            System.out.println();
+            HashMap<String, Integer> temp = new HashMap<>();
+            temp.put(entity.getJobId(), entity.getCost());
+            dataMatrix.put(entity.getResourceId(), temp);
         }
 
-        System.out.println();
-
-        System.out.println("Unique Patients: " + uniqueResources.size());
-        System.out.println("Unique Slots: " + uniqueJobs.size());
+        System.out.println(dataMatrix.toString());
     }
 }
