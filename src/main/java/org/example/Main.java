@@ -1,5 +1,8 @@
 package org.example;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -47,5 +50,20 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e);
         }
+
+        Multimap<String, Multimap<String, Integer>> dataMatrix = ArrayListMultimap.create();
+
+        for (Entity entity : entities) {
+            String resource = entity.getResourceId();
+            String job = entity.getJobId();
+            Integer cost = entity.getCost();
+
+            Multimap<String, Integer> temp = ArrayListMultimap.create();
+            temp.put(job, cost);
+
+            dataMatrix.put(resource, temp);
+        }
+
+        System.out.println(dataMatrix.toString());
     }
 }
