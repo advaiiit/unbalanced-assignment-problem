@@ -4,10 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 
@@ -50,14 +47,5 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e);
         }
-
-        HashMap<String, HashMap<String, Integer>> dataMatrix = new HashMap<>();
-        for (Entity entity : entities) {
-            HashMap<String, Integer> temp = new HashMap<>();
-            temp.put(entity.getJobId(), entity.getCost());
-            dataMatrix.put(entity.getResourceId(), temp);
-        }
-
-        System.out.println(dataMatrix.toString());
     }
 }
