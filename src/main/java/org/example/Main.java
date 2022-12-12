@@ -47,5 +47,21 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e);
         }
+
+        HashMap<String, Pair<String, Integer>> dataMatrix = new HashMap<>();
+
+        for (Entity entity : entities) {
+            String resource = entity.getResourceId();
+            String job = entity.getJobId();
+            Integer cost = entity.getCost();
+
+            Pair pair = new Pair<>(job, cost);
+            dataMatrix.put(resource, pair);
+        }
+
+        for (Map.Entry<String, Pair<String, Integer>> data : dataMatrix.entrySet()) {
+            Pair pair = data.getValue();
+            System.out.println(data.getKey() + "\t" + pair.getKey() + "\t" + pair.getValue());
+        }
     }
 }
