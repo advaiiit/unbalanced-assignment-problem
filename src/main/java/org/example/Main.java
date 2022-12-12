@@ -51,14 +51,14 @@ public class Main {
             System.out.println(e);
         }
 
-        Multimap<String, Multimap<String, Integer>> dataMatrix = ArrayListMultimap.create();
+        Multimap<String, HashMap<String, Integer>> dataMatrix = ArrayListMultimap.create();
 
         for (Entity entity : entities) {
             String resource = entity.getResourceId();
             String job = entity.getJobId();
             Integer cost = entity.getCost();
 
-            Multimap<String, Integer> temp = ArrayListMultimap.create();
+            HashMap<String, Integer> temp = new HashMap<>();
             temp.put(job, cost);
 
             dataMatrix.put(resource, temp);
