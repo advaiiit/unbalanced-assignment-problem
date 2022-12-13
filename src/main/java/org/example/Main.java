@@ -8,6 +8,12 @@ import java.util.*;
 
 public class Main {
 
+    public static void printEntity(ArrayList<Entity> entities) {
+        for (Entity entity : entities) {
+            System.out.println(entity.getResourceId() + "\t" + entity.getJobId() + "\t" + entity.getCost());
+        }
+    }
+
     public static void main(String[] args) {
         // Database Connection
         String dbDriver = "org.postgresql.Driver";
@@ -72,10 +78,12 @@ public class Main {
             }
         }
 
-        for (Entity entity : entities) {
-            System.out.println(entity.getResourceId() + "\t" + entity.getJobId() + "\t" + entity.getCost());
-        }
+        maxResources = uniqueResources.size();
+        maxJobs = uniqueJobs.size();
 
-        System.out.println(uniqueResources.size() + "\t" + uniqueJobs.size());
+        HungarianAlgorithm hungarianAlgorithm = new HungarianAlgorithm(entities, uniqueResources, uniqueJobs);
+        ArrayList<Entity> reducesEntities = hungarianAlgorithm.reduceMatrix();
+
+        printEntity(reducesEntities);
     }
 }
