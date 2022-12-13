@@ -38,14 +38,44 @@ public class Main {
                 uniqueResources.add(currentResource);
                 uniqueJobs.add(currentJob);
 
-                Entity entity = new Entity();
-                entity.setResourceId(currentResource);
-                entity.setJobId(currentJob);
-                entity.setCost(currentCost);
+                Entity entity = new Entity(currentResource, currentJob, currentCost);
                 entities.add(entity);
             }
         } catch (Exception e) {
             System.out.println(e);
         }
+
+        int maxResources = uniqueResources.size();
+        int maxJobs = uniqueJobs.size();
+
+        if (maxResources != maxJobs) {
+            if (maxResources > maxJobs) {
+                int generateJobs = maxResources - maxJobs;
+
+                for (String resource : uniqueResources) {
+                    for (int i = 0; i < generateJobs; i++) {
+                        Entity entity = new Entity(resource, "D" + i, 0);
+                        uniqueJobs.add(entity.getJobId());
+                        entities.add(entity);
+                    }
+                }
+            } else {
+                int generateResources = maxJobs - maxResources;
+
+                for (String job : uniqueJobs) {
+                    for (int i = 0; i < generateResources; i++) {
+                        Entity entity = new Entity("D" + i, job, 0);
+                        uniqueResources.add(entity.getResourceId());
+                        entities.add(entity);
+                    }
+                }
+            }
+        }
+
+        for (Entity entity : entities) {
+            System.out.println(entity.getResourceId() + "\t" + entity.getJobId() + "\t" + entity.getCost());
+        }
+
+        System.out.println(uniqueResources.size() + "\t" + uniqueJobs.size());
     }
 }

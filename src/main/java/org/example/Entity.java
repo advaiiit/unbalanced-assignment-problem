@@ -12,6 +12,12 @@ public class Entity {
 
     }
 
+    public Entity(String resourceId, String jobId, int cost) {
+        this.resourceId = resourceId;
+        this.jobId = jobId;
+        this.cost = cost;
+    }
+
     public String getResourceId() {
         return resourceId;
     }
