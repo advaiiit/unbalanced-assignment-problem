@@ -49,7 +49,26 @@ public class HungarianAlgorithm {
                 }
             }
         }
-
         return entities;
+    }
+
+    public HashMap<String, String> optimalAssignments() {
+        HashMap<String, String> assignments = new HashMap<>();
+        Set<String> jobsAssigned = new HashSet<>();
+
+        for (String resource : uniqueResources) {
+            int minCost = Integer.MAX_VALUE;
+            String minCostJob = "";
+            for (Entity entity : entities) {
+                if (Objects.equals(entity.getResourceId(), resource) && !jobsAssigned.contains(entity.getJobId()) && entity.getCost() < minCost) {
+                    minCost = entity.getCost();
+                    minCostJob = entity.getJobId();
+                }
+            }
+            jobsAssigned.add(minCostJob);
+            assignments.put(resource, minCostJob);
+        }
+
+        return assignments;
     }
 }

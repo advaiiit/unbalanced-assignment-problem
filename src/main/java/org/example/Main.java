@@ -83,7 +83,11 @@ public class Main {
 
         HungarianAlgorithm hungarianAlgorithm = new HungarianAlgorithm(entities, uniqueResources, uniqueJobs);
         ArrayList<Entity> reducesEntities = hungarianAlgorithm.reduceMatrix();
+//        printEntity(reducesEntities);
 
-        printEntity(reducesEntities);
+        HashMap<String, String> assignments = hungarianAlgorithm.optimalAssignments();
+        for (Map.Entry<String, String> data : assignments.entrySet()) {
+            System.out.println(data.getKey() + " -> " + data.getValue());
+        }
     }
 }
